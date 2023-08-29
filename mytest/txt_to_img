@@ -1,0 +1,34 @@
+import os
+import shutil
+
+# 读取txt文件
+txt_file = '/media/amax/88b3d9ca-86d8-4859-98a6-8cbe052e5653/pmj/dataset/VOCdevkit/VOC2007/ImageSets/Main/test1.txt'
+image_folder = '/media/amax/88b3d9ca-86d8-4859-98a6-8cbe052e5653/pmj/dataset/VOCdevkit/VOC2007/JPEGImages'
+output_folder = '/media/amax/88b3d9ca-86d8-4859-98a6-8cbe052e5653/pmj/dataset/yixian_coco/test2017/'
+
+with open(txt_file, 'r') as file:
+    lines = file.readlines()
+
+# 创建输出文件夹
+os.makedirs(output_folder, exist_ok=True)
+
+# 遍历每行数据
+for line in lines:
+    line = line.strip()  # 去除行末的换行符或空格
+
+    # 获取图片文件名
+    image_name = line + '.png'  # 假设图片文件扩展名为.jpg
+
+    # 拼接图片文件路径
+    image_path = os.path.join(image_folder, image_name)
+
+    # 判断图片文件是否存在
+    if os.path.isfile(image_path):
+        # 创建对应的文件夹
+        #folder_path = os.path.join(output_folder, line)
+        #os.makedirs(folder_path, exist_ok=True)
+
+        # 移动图片到对应的文件夹
+        shutil.copy(image_path, output_folder)
+    else:
+        print(f"Image not found: {image_name}")
